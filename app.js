@@ -29,7 +29,7 @@ form.addEventListener("submit", async (event) => {
 
   const inputValue = event.target.input.value
   const APIKey = "ADswUEnQr08FQFoTMDE6tmbtG4eb5oCz"
-  const url = `https://api.giphy.com/v1/gifs/random?api_key=${APIKey}&tag=${inputValue}`
+  const url = `https://api.giphy.com/v1/gifs/random?api_key=${APIKey}&rating=g&tag=${inputValue}`
 
   try {
     const response = await fetch(url)
@@ -41,10 +41,9 @@ form.addEventListener("submit", async (event) => {
     const gifData = await response.json()
     const gifContentUrl = gifData.data.images.downsized.url
     const gifTitle = gifData.data.title
-    console.log(gifData.data)
+
     insertGifIntoHTML(gifContentUrl, gifTitle)
 
-    event.target.reset()
   } catch (error) {
     alert(`Erro: ${error.message}`)
   }
@@ -58,4 +57,5 @@ const insertGifIntoHTML = (content, alt) => {
   title.textContent = alt
   output.insertAdjacentElement("afterbegin", img)
   output.insertAdjacentElement("afterbegin", title)
+  form.reset()
 }
