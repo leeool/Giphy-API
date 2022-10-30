@@ -29,7 +29,7 @@ const APIKey = "ADswUEnQr08FQFoTMDE6tmbtG4eb5oCz"
 const getGIPHYApiUrl = (GiFName) =>
   `https://api.giphy.com/v1/gifs/random?api_key=${APIKey}&rating=g&tag=${GiFName}`
 
-form.addEventListener("submit", async (event) => {
+const fetchAPI = async (event) => {
   event.preventDefault()
 
   const inputValue = event.target.input.value
@@ -49,7 +49,9 @@ form.addEventListener("submit", async (event) => {
   } catch (error) {
     alert(`Erro: ${error.message}`)
   }
-})
+}
+
+form.addEventListener("submit", fetchAPI)
 
 const insertGifIntoHTML = (content, alt) => {
   const img = document.createElement("img")
