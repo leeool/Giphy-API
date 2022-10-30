@@ -24,15 +24,18 @@
 let output = document.querySelector(".out")
 const form = document.querySelector("form")
 
+const APIKey = "ADswUEnQr08FQFoTMDE6tmbtG4eb5oCz"
+
+const getGIPHYApiUrl = (GiFName) =>
+  `https://api.giphy.com/v1/gifs/random?api_key=${APIKey}&rating=g&tag=${GiFName}`
+
 form.addEventListener("submit", async (event) => {
   event.preventDefault()
 
   const inputValue = event.target.input.value
-  const APIKey = "ADswUEnQr08FQFoTMDE6tmbtG4eb5oCz"
-  const url = `https://api.giphy.com/v1/gifs/random?api_key=${APIKey}&rating=g&tag=${inputValue}`
-
+  
   try {
-    const response = await fetch(url)
+    const response = await fetch(getGIPHYApiUrl(inputValue))
 
     if (!response.ok) {
       throw new Error("Não foi possivel obter os dados da API")
@@ -43,7 +46,6 @@ form.addEventListener("submit", async (event) => {
     const gifTitle = gifData.data.title
 
     insertGifIntoHTML(gifContentUrl, gifTitle)
-
   } catch (error) {
     alert(`Erro: ${error.message}`)
   }
